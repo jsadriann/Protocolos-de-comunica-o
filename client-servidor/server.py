@@ -2,7 +2,14 @@ import socket
 import threading
 import json
 
-SERVER_IP = "0.0.0.0"
+##SERVER_IP = "0.0.0.0"
+# Obter IP local automaticamente
+hostname = socket.gethostname()
+SERVER_IP = socket.gethostbyname(hostname)
+
+# Nome do servidor para identificação
+SERVER_NAME = "Servidor do João"
+
 SERVER_PORT = 9999
 clients = {}
 received_messages = set()
@@ -69,14 +76,15 @@ def handle_message(data, addr):
         print(f"[ERROR] {e}")
 
 def listen():
-    print(f"[SERVER] Listening on {SERVER_IP}:{SERVER_PORT}")
+    print(f"[{SERVER_NAME}] Online em {SERVER_IP}:{SERVER_PORT}")
     while True:
         try:
             data, addr = sock.recvfrom(4096)
             threading.Thread(target=handle_message, args=(data, addr), daemon=True).start()
         except KeyboardInterrupt:
-            print("\n[SERVER] Shutting down.")
+            print(f"\n[{SERVER_NAME}] Encerrando servidor.")
             break
+
 
 if __name__ == "__main__":
     listen()

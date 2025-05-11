@@ -8,7 +8,7 @@ from tkinter import ttk
 from ttkthemes import ThemedTk
 import emoji
 
-SERVER_IP = "127.0.0.1"
+SERVER_IP = "192.168.18.15"
 SERVER_PORT = 9999
 TIMEOUT = 2
 BUFFER_SIZE = 4096
