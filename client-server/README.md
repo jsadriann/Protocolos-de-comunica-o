@@ -65,10 +65,11 @@ SERVER_IP = "192.168.0.101"  # Altere para o IP do servidor
 ## 🛠️ Estrutura dos Arquivos
 
 ```
-📁 seu_projeto/
+📁 client-server/
 ├── client.py      # Interface gráfica + envio/recebimento de mensagens
-├── server.py      # Lida com clientes e transmissão de mensagens
-└── README.md      # Este arquivo
+├── README.md.py   # Este arquivo
+├── requeriments    # Lista dos modulos necessarios
+├── server.py      # Lida com clientes e transmissão de mensagens   
 ```
 
 ---
@@ -88,4 +89,4 @@ SERVER_IP = "192.168.0.101"  # Altere para o IP do servidor
 
 ## 🧑‍💻 Autor
 
-Desenvolvido por [Seu Nome]. Projeto educativo para comunicação em redes locais usando Python.
+Desenvolvido por Adrian. Projeto desenvolvido para a pratica de cliente-servidor da disciplina de protocolos de comunicação.
