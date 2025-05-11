@@ -1,6 +1,6 @@
 # 💬 RapideMSN - Chat em Rede Local via UDP
 
-Um chat simples em Python usando **UDP sockets**, interface gráfica com **Tkinter** e suporte a **emojis**, com tema escuro e confiável em redes locais (LAN).
+Um chat simples em Python usando **UDP sockets**, interface gráfica com **Tkinter** e operando em redes locais (LAN).
 
 ---
 
@@ -9,12 +9,11 @@ Um chat simples em Python usando **UDP sockets**, interface gráfica com **Tkint
 - Python 3.8+
 - Pacotes Python:
   - `ttkthemes`
-  - `emoji`
 
 Você pode instalar os pacotes necessários com:
 
 ```bash
-pip install ttkthemes emoji
+pip install ttkthemes 
 ```
 
 ---
@@ -55,7 +54,6 @@ SERVER_IP = "192.168.0.101"  # Altere para o IP do servidor
 ## 🎨 Recursos da Interface
 
 - Tema escuro (equilux)
-- Suporte a **emojis** usando `:nome:`, ex: `:smile:`
 - Envio com Enter ou Ctrl+Enter
 - Mensagens exibidas com alinhamento por autor
 - Notificações de entrada de usuários
