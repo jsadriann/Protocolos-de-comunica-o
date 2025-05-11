@@ -8,7 +8,7 @@ hostname = socket.gethostname()
 SERVER_IP = socket.gethostbyname(hostname)
 
 # Nome do servidor para identificação
-SERVER_NAME = "Servidor do João"
+SERVER_NAME = "Servidor do RapideMSN"
 
 SERVER_PORT = 9999
 clients = {}
