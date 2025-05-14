@@ -3,11 +3,11 @@ import threading
 import json
 
 ##SERVER_IP = "0.0.0.0"
-# Obter IP local automaticamente
+# Obter IP local
 hostname = socket.gethostname()
 SERVER_IP = socket.gethostbyname(hostname)
 
-# Nome do servidor para identificação
+# Nome do servidor
 SERVER_NAME = "Servidor do RapideMSN"
 
 SERVER_PORT = 9999
@@ -18,7 +18,6 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((SERVER_IP, SERVER_PORT))
 
 def notify_users(message, exclude_user=None):
-    """Notifica todos os usuários conectados, exceto o usuário especificado."""
     for user, user_addr in clients.items():
         if user != exclude_user:
             notification = {
