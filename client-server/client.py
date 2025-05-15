@@ -27,22 +27,31 @@ class ChatClient:
         self.root.geometry("500x650")
         self.root.resizable(False, False)
 
-        self.root.set_theme("equilux")
+        # Tema claro
+        self.root.set_theme("arc")  # Você pode trocar por "plastik" ou "radiance"
 
         self.main_frame = ttk.Frame(self.root, padding=10)
         self.main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
 
-        self.chat_area = tk.Text(self.main_frame, wrap=tk.WORD, state=tk.DISABLED, width=60, height=20, bg="#2e2e2e", fg="#ffffff", insertbackground="#ffffff", font=("Arial", 12))
-        self.chat_area.grid(row=0, column=0, padx=(0, 10), pady=10, sticky="nsew")
+        # Área de chat com fundo branco e texto preto
+        self.chat_area = tk.Text(
+            self.main_frame, wrap=tk.WORD, state=tk.DISABLED,
+            width=60, height=20, bg="#000", fg="#000000",
+            insertbackground="#000000", font=("Segoe UI", 11), bd=0, relief=tk.FLAT
+        )
+        self.chat_area.grid(row=0, column=0, columnspan=2, pady=(0, 10), sticky="nsew")
 
-        self.msg_entry = ttk.Entry(self.main_frame, width=60, font=("Arial", 12), style="TEntry")
+        # Campo de entrada de mensagem
+        self.msg_entry = ttk.Entry(self.main_frame, width=60, font=("Segoe UI", 11))
         self.msg_entry.grid(row=1, column=0, padx=(0, 10), pady=10, sticky="ew")
         self.msg_entry.bind("<Return>", self.send_message)
         self.msg_entry.bind("<Control-Return>", self.send_message)
 
-        self.send_btn = ttk.Button(self.main_frame, text="Enviar", command=self.send_message, style="TButton")
+        # Botão de enviar
+        self.send_btn = ttk.Button(self.main_frame, text="Enviar", command=self.send_message)
         self.send_btn.grid(row=1, column=1, pady=10, padx=(10, 0), sticky="ew")
 
+        # Ajustes de layout
         self.main_frame.rowconfigure(0, weight=1)
         self.main_frame.columnconfigure(0, weight=1)
 
@@ -50,6 +59,18 @@ class ChatClient:
 
         self.recv_thread = threading.Thread(target=self.receive_loop, daemon=True)
         self.recv_thread.start()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def on_close(self):
+        exit_msg = {
+            "action": "exit",
+            "username": self.username
+        }
+        try:
+            self.sock.sendto(json.dumps(exit_msg).encode(), (SERVER_IP, SERVER_PORT))
+        except:
+            pass
+        self.root.destroy()
 
     def register_username(self):
         while True:
@@ -75,19 +96,18 @@ class ChatClient:
         name = "Você" if sender == self.username else f"{sender}"
 
         content = emoji.emojize(content, language='alias')
-
         formatted = f"{name}: {content}\n"
         self.chat_area.insert(tk.END, formatted, tag)
 
-        self.chat_area.tag_config("right", justify=tk.RIGHT, foreground="#1E88E5", font=("Helvetica", 11))
-        self.chat_area.tag_config("left", justify=tk.LEFT, foreground="#388E3C", font=("Helvetica", 11))
+        self.chat_area.tag_config("right", justify=tk.RIGHT, foreground="#1565C0", font=("Segoe UI", 10, "bold"))
+        self.chat_area.tag_config("left", justify=tk.LEFT, foreground="#2E7D32", font=("Segoe UI", 10))
         self.chat_area.config(state=tk.DISABLED)
         self.chat_area.see(tk.END)
 
     def display_notification(self, message):
         self.chat_area.config(state=tk.NORMAL)
         self.chat_area.insert(tk.END, f"\n{'-'*5} {message} {'-'*5}\n", "center")
-        self.chat_area.tag_config("center", justify=tk.CENTER, foreground="#FF9800", font=("Helvetica", 12, "italic"))
+        self.chat_area.tag_config("center", justify=tk.CENTER, foreground="#FB8C00", font=("Segoe UI", 10, "italic"))
         self.chat_area.config(state=tk.DISABLED)
         self.chat_area.see(tk.END)
 
@@ -106,7 +126,6 @@ class ChatClient:
                 elif msg["action"] == "ack":
                     self.acks.add(msg["seq"])
                 elif msg["action"] == "notify":
-                    # Exibe a notificação de que o usuário entrou
                     self.display_notification(msg["message"])
             except:
                 continue
@@ -135,6 +154,6 @@ class ChatClient:
         messagebox.showerror("Sentimos muito", "Servidor está offline.")
 
 if __name__ == "__main__":
-    root = ThemedTk(theme="equilux")
+    root = ThemedTk(theme="arc")
     app = ChatClient(root)
     root.mainloop()
