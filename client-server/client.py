@@ -8,7 +8,7 @@ from tkinter import ttk
 from ttkthemes import ThemedTk
 import emoji
 
-SERVER_IP = "192.168.18.14"
+SERVER_IP = "10.0.108.84"
 SERVER_PORT = 9999
 TIMEOUT = 2
 BUFFER_SIZE = 4096
@@ -100,7 +100,7 @@ class ChatClient:
         self.chat_area.insert(tk.END, formatted, tag)
 
         self.chat_area.tag_config("right", justify=tk.RIGHT, foreground="#1565C0", font=("Segoe UI", 10, "bold"))
-        self.chat_area.tag_config("left", justify=tk.LEFT, foreground="#2E7D32", font=("Segoe UI", 10))
+        self.chat_area.tag_config("left", justify=tk.LEFT, foreground="#39ff14", font=("Segoe UI", 10))
         self.chat_area.config(state=tk.DISABLED)
         self.chat_area.see(tk.END)
 
